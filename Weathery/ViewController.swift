@@ -12,9 +12,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+     
+        let currentWeather = CurrentWeather()
+        
+        currentWeather.getCurrentWeather { (success) in
+            if success{
+                print("the City is: ", currentWeather.city);
+            }
+        }
+        
     }
 
-
+    
 }
 
