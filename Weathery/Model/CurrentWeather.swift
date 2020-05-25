@@ -124,8 +124,15 @@ class CurrentWeather{
         return _visibility
     }
     
-    func getCurrentWeather(completion: @escaping(_ success: Bool) -> Void){
-        let LOCATIONAPI_URL = "https://api.weatherbit.io/v2.0/current?city=Raleigh,NC&key=d8ac02651f7c4c74960405862d9fce66"
+    func getCurrentWeather(location: WeatherLocation,completion: @escaping(_ success: Bool) -> Void){
+        var LOCATIONAPI_URL: String!
+        
+        if !location.isCurrentLocation{
+            LOCATIONAPI_URL = String(format: "https://api.weatherbit.io/v2.0/current?city=%@,%@&key=d8ac02651f7c4c74960405862d9fce66", location.city, location.countryCode)
+        } else {
+            LOCATIONAPI_URL = CURRENT_LOCATION_URL
+        }
+            
         Alamofire.request(LOCATIONAPI_URL).responseJSON { (response) in
             
             let result = response.result
